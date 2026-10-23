@@ -1,0 +1,90 @@
+@import 'tailwindcss';
+
+/* Habitat marketing site — the platform's own palette: navy ink, the gold of the Gateway mark,
+   and the console's teal, on a warm ivory ground. */
+@theme {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    sans-serif;
+  --font-display: 'Fraunces', ui-serif, Georgia, 'Times New Roman', serif;
+
+  --color-ivory: #faf7f1;
+  --color-sand: #f2ece1;
+  --color-line: #e5ddcf;
+
+  --color-ink-300: #93a0b4;
+  --color-ink-400: #66758c;
+  --color-ink-500: #46546b;
+  --color-ink-600: #2c3a52;
+  --color-ink-700: #1b2840;
+  --color-ink-800: #121d31;
+  --color-ink-900: #0b1424;
+  --color-ink-950: #060c17;
+
+  --color-gold-50: #fdf6eb;
+  --color-gold-100: #fbecd6;
+  --color-gold-200: #f6d6aa;
+  --color-gold-300: #f1bd73;
+  --color-gold-400: #ec9f3e;
+  --color-gold-500: #dc8a24;
+  --color-gold-600: #b86d18;
+  --color-gold-700: #8f5316;
+
+  --color-teal-50: #edfcf9;
+  --color-teal-100: #d3f7f0;
+  --color-teal-500: #17ac9e;
+  --color-teal-600: #0d8b81;
+  --color-teal-700: #106f69;
+
+  --animate-float: float 7s ease-in-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    @apply bg-ivory font-sans text-ink-900;
+  }
+  ::selection {
+    @apply bg-gold-200 text-ink-900;
+  }
+}
+
+/* Scroll reveal: content is visible by default and only animates once JS has marked the page,
+   so a visitor without JS (or a crawler) never sees blank sections. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-float {
+    animation: none;
+  }
+}
